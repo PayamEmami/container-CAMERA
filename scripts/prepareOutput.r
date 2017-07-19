@@ -286,8 +286,8 @@ if(rename)
 }
 colnames(sampleMetaData)[1]<-"sampleMetadata"
 
-technicalReps<-technicalReps[match(colnames(peakMatrix),sampleMetaData[,1])]
-peakMatrix<-peakMatrix[,match(colnames(peakMatrix),sampleMetaData[,1])]
+technicalReps<-technicalReps[match(sampleMetaData[,1],colnames(peakMatrix))]
+peakMatrix<-peakMatrix[,match(sampleMetaData[,1],colnames(peakMatrix))]
 peakMatrixNames<-colnames(peakMatrix)
 if(combineReplicate)
 {
