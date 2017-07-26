@@ -169,7 +169,7 @@ phenotypeInfo<-read.csv(file = phenotypeInfoFile,stringsAsFactors = F)
 sepScore<-","
 if(scoreColumn=="q.value")
   sepScore="\t"
-metfragRes<-read.table(file = scoreInput,header = T,sep = sepScore,quote="",stringsAsFactors = F)
+metfragRes<-read.table(file = scoreInput,header = T,sep = sepScore,quote="",stringsAsFactors = F,comment.char = "")
 
 mappedToCamera<-metFragToCamera(metFragSearchResult = metfragRes,
                                 cameraObject = cameraObject,MinusTime = rtTol,PlusTime = rtTol,ppm = ppmTol)
