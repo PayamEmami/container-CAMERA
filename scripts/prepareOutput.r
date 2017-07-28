@@ -166,8 +166,8 @@ cameraPeakList<-getPeaklist(cameraObject)
 
 
 phenotypeInfo<-read.csv(file = phenotypeInfoFile,stringsAsFactors = F)
-sepScore<-","
-if(scoreColumn=="q.value")
+#sepScore<-","
+#if(scoreColumn=="q.value")
   sepScore="\t"
 metfragRes<-read.table(file = scoreInput,header = T,sep = sepScore,quote="",stringsAsFactors = F,comment.char = "")
 
@@ -330,8 +330,7 @@ if(onlyReportWithID)
 }
 
 peakMatrix<-cbind.data.frame(dataMatrix=VariableData[,"variableMetadata"],peakMatrix,stringsAsFactors = F)
-VariableData<-sapply(VariableData, gsub, pattern="\'", replacement="")
-VariableData<-sapply(VariableData, gsub, pattern="#", replacement="")
+VariableData<-sapply(VariableData, gsub, pattern="\'|#", replacement="")
 VariableData<-VariableData[apply(is.na(peakMatrix),1,sum)!=(ncol(peakMatrix)-1),]
 peakMatrix<-peakMatrix[apply(is.na(peakMatrix),1,sum)!=(ncol(peakMatrix)-1),]
 #peakMatrix[VariableData[,2]!="Unknown",1]<-VariableData[VariableData[,2]!="Unknown","Identifier"]
