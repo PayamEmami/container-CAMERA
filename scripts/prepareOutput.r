@@ -75,7 +75,7 @@ rename<-T
 onlyReportWithID<-T
 combineReplicate<-F
 combineReplicateColumn<-"rep"
-
+iflog<-F
 for(arg in args)
 {
   argCase<-strsplit(x = arg,split = "=")[[1]][1]
@@ -141,7 +141,10 @@ for(arg in args)
   {
     combineReplicateColumn=as.character(value)
   }
-  
+   if(argCase=="log")
+  {
+    iflog=as.logical(value)
+  }
   if(argCase=="outputPeakTable")
   {
     outputPeakTable=as.character(value)
@@ -323,12 +326,15 @@ peakMatrix<-data.frame(peakMatrix)
 colnames(peakMatrix)<-peakMatrixNames
 
 
-if(onlyReportWithID)
+if(!onlyReportWithID)
 {
   peakMatrix<-peakMatrix[VariableData[,2]!="Unknown",]
   VariableData<-VariableData[VariableData[,2]!="Unknown",]
 }
-
+if(iflog)
+{
+peakMatrix<-log2(peakMatrix)
+}
 peakMatrix<-cbind.data.frame(dataMatrix=VariableData[,"variableMetadata"],peakMatrix,stringsAsFactors = F)
 VariableData<-sapply(VariableData, gsub, pattern="\'|#", replacement="")
 VariableData<-VariableData[apply(is.na(peakMatrix),1,sum)!=(ncol(peakMatrix)-1),]
